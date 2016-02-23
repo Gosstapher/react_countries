@@ -19670,12 +19670,23 @@
 
 
 	  getInitialState: function getInitialState() {
-	    return { countries: [], currentCountry: null };
+	    return { countries: [], currentCountry: null, currentCountryBorders: [] };
 	  },
 
 	  setCurrentCountry: function setCurrentCountry(country) {
 	    this.setState({ currentCountry: country });
+	    var borderCodes = country.borders;
+	    this.setState({ currentCountryBorders: borderCodes });
 	  },
+
+	  // setBorderCountryObjects: function(){
+	  //   var allTheCountries = this.state.countries;
+	  //   this.state.currentCountryBorders.map(function(code){
+	  //     for(country in allTheCountries){
+	  //       country.alpha3Code
+	  //     }
+	  //   })
+	  // },
 
 	  componentDidMount: function componentDidMount() {
 	    var url = "https://restcountries.eu/rest/v1/all";
@@ -19786,22 +19797,6 @@
 	      );
 	    } else {
 
-	      if (this.props.country.borders.length === 0) {
-	        var borders = React.createElement(
-	          'h2',
-	          null,
-	          ' This country has no bordering countries '
-	        );
-	      } else {
-	        var borders = this.props.country.borders.map(function (code, index) {
-	          return React.createElement(
-	            'li',
-	            { key: index },
-	            code
-	          );
-	        });
-	      }
-
 	      return React.createElement(
 	        'div',
 	        null,
@@ -19821,11 +19816,6 @@
 	          null,
 	          'population: ',
 	          this.props.country.population
-	        ),
-	        React.createElement(
-	          'ul',
-	          null,
-	          borders
 	        )
 	      );
 	    }

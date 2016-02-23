@@ -5,12 +5,23 @@ var CountryDisplay = require('./CountryDisplay');
 var CountriesBox = React.createClass({
 
   getInitialState: function(){
-    return{ countries: [], currentCountry: null }
+    return{ countries: [], currentCountry: null, currentCountryBorders: [] }
   },
 
   setCurrentCountry: function(country){
     this.setState({currentCountry: country});
+    var borderCodes = country.borders;
+    this.setState({currentCountryBorders: borderCodes});
   },
+
+  // setBorderCountryObjects: function(){
+  //   var allTheCountries = this.state.countries;
+  //   this.state.currentCountryBorders.map(function(code){
+  //     for(country in allTheCountries){
+  //       country.alpha3Code
+  //     }
+  //   })
+  // },
 
   componentDidMount: function(){
     var url = "https://restcountries.eu/rest/v1/all"
